@@ -4,6 +4,8 @@
 set -euo pipefail
 
 OWNER="${GITHUB_REPOSITORY_OWNER:-adrienbrault}"
+# Repositories shown expanded; everything up to LIMIT goes behind a <details>.
+PRIMARY="${PRIMARY:-10}"
 LIMIT="${LIMIT:-20}"
 README="${README:-README.md}"
 
@@ -13,23 +15,20 @@ if [ -n "${GITHUB_TOKEN:-}" ]; then
 fi
 
 api="https://api.github.com/users/${OWNER}/repos?per_page=100&sort=pushed&type=owner"
-tmp=$(mktemp)
-trap 'rm -f "$tmp"' EXIT
+tmp_raw=$(mktemp)
+tmp_primary=$(mktemp)
+tmp_more=$(mktemp)
+trap 'rm -f "$tmp_raw" "$tmp_primary" "$tmp_more"' EXIT
 
-# One bullet per repo: linked name, star pill (only when starred), small date
-# caption, description below. Repos without a description render as the name +
-# meta line only.
-curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
-  jq -r --arg owner "$OWNER" --argjson limit "$LIMIT" '
+# One row per repo: linked name with the description beneath, and a right-aligned
+# column holding stars and update date stacked. Dates use non-breaking hyphens so
+# the narrow column cannot wrap them.
+rows_filter='
     [ .[] | select(.fork == false) | select(.name != $owner) ]
-    | sort_by(.pushed_at) | reverse | .[:$limit]
+    | sort_by(.pushed_at) | reverse
+    | .[$from:$to]
     | .[]
     | "| **[\(.name)](https://github.com/\($owner)/\(.name))**"
-      + " <sub>"
-      + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
-           (.pushed_at | split("T")[0]) ]
-         | join(" · "))
-      + "</sub>"
       + (if ((.description // "") | length) == 0 then ""
          else "<br>" + (.description
            | gsub("[\r\n\t]+"; " ")
@@ -37,14 +36,25 @@ curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
            | if length > 160 then (.[0:160] | sub("[^ ]*$"; "") | sub(" +$"; "")) + "…"
              else . end)
          end)
-      + " |"
-  ' > "$tmp"
+      + " | <sub>"
+      + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
+           (.pushed_at | split("T")[0] | gsub("-"; "&#8209;")) ]
+         | join("<br>"))
+      + "</sub> |"'
 
-python3 - "$README" "$tmp" <<'PY'
+curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" > "$tmp_raw"
+
+jq -r --arg owner "$OWNER" --argjson from 0 --argjson to "$PRIMARY" "$rows_filter" \
+  "$tmp_raw" > "$tmp_primary"
+jq -r --arg owner "$OWNER" --argjson from "$PRIMARY" --argjson to "$LIMIT" "$rows_filter" \
+  "$tmp_raw" > "$tmp_more"
+
+python3 - "$README" "$tmp_primary" "$tmp_more" <<'PY'
 import pathlib, sys
 
 readme = pathlib.Path(sys.argv[1])
-items = [line for line in pathlib.Path(sys.argv[2]).read_text().splitlines() if line.strip()]
+primary = [l for l in pathlib.Path(sys.argv[2]).read_text().splitlines() if l.strip()]
+more = [l for l in pathlib.Path(sys.argv[3]).read_text().splitlines() if l.strip()]
 
 start_marker, end_marker = "<!-- RECENT:START -->", "<!-- RECENT:END -->"
 text = readme.read_text()
@@ -52,6 +62,20 @@ start, end = text.find(start_marker), text.find(end_marker)
 if start == -1 or end == -1:
     sys.exit("markers not found in README")
 
-block = "\n".join([start_marker, "", "| Repository |", "| :--- |", *items, "", end_marker])
-readme.write_text(text[:start] + block + text[end + len(end_marker):])
+header = ["| Repository | ★<br>updated |", "| :--- | ---: |"]
+lines = [start_marker, "", *header, *primary]
+if more:
+    lines += [
+        "",
+        "<details>",
+        f"<summary>{len(more)} more repositories</summary>",
+        "",
+        *header,
+        *more,
+        "",
+        "</details>",
+    ]
+lines += ["", end_marker]
+
+readme.write_text(text[:start] + "\n".join(lines) + text[end + len(end_marker):])
 PY
