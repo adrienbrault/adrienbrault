@@ -2,7 +2,7 @@
 
 <!-- RECENT:START -->
 
-| Repository | ★<br>updated |
+| Repository | |
 | :--- | ---: |
 | **[pi-ui](https://github.com/adrienbrault/pi-ui)** | <sub>2026&#8209;11&#8209;24</sub> |
 | **[qwen3.8-27b-rtx5090](https://github.com/adrienbrault/qwen3.8-27b-rtx5090)**<br>Qwen3.8-27B on 2× RTX 5090 · 1.49M KV · code/prose t/s: c1 264/216, c16 2,649/2,240 · NVFP4 + vLLM + MTP | <sub>28 ★<br>2026&#8209;11&#8209;24</sub> |
@@ -18,7 +18,7 @@
 <details>
 <summary>10 more repositories</summary>
 
-| Repository | ★<br>updated |
+| Repository | |
 | :--- | ---: |
 | **[claude-fix-bash-diffs](https://github.com/adrienbrault/claude-fix-bash-diffs)**<br>Claude Code mod that cuts the file diffs under Bash calls from 40 lines to 8 per file | <sub>2026&#8209;10&#8209;19</sub> |
 | **[glm5.3-flash-2x-rtx5090](https://github.com/adrienbrault/glm5.3-flash-2x-rtx5090)**<br>GLM-5.3-Flash (321B MoE, 2.05bpw EXL3) on 2× RTX 5090 + 64 GB DDR5, ExLlamaV3 + TabbyAPI. CPU-offloaded experts with runtime hot-expert swaps, exact output: 60… | <sub>1 ★<br>2026&#8209;10&#8209;10</sub> |

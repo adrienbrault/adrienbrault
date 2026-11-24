@@ -62,7 +62,7 @@ start, end = text.find(start_marker), text.find(end_marker)
 if start == -1 or end == -1:
     sys.exit("markers not found in README")
 
-header = ["| Repository | ★<br>updated |", "| :--- | ---: |"]
+header = ["| Repository | |", "| :--- | ---: |"]
 lines = [start_marker, "", *header, *primary]
 if more:
     lines += [
