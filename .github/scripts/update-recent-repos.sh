@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Regenerates the "Recently updated repositories" table in README.md.
+# Regenerates the repository index in README.md (between the RECENT markers).
 # Run locally or from the update-recent workflow. Requires curl, jq, python3.
 set -euo pipefail
 
 OWNER="${GITHUB_REPOSITORY_OWNER:-adrienbrault}"
-LIMIT="${LIMIT:-15}"
+LIMIT="${LIMIT:-20}"
 README="${README:-README.md}"
 
 auth=()
@@ -16,26 +16,34 @@ api="https://api.github.com/users/${OWNER}/repos?per_page=100&sort=pushed&type=o
 tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
 
-# Build the table rows.
+# One card per repo: bold linked name, small meta line, description.
+# Repos without a description render as name + meta only.
 curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
   jq -r --arg owner "$OWNER" --argjson limit "$LIMIT" '
     [ .[] | select(.fork == false) | select(.name != $owner) ]
     | sort_by(.pushed_at) | reverse | .[:$limit]
     | .[]
-    | "| [\(.name)](https://github.com/\($owner)/\(.name)) | "
-      + ((.description // "")
+    | "**[\(.name)](https://github.com/\($owner)/\(.name))**",
+      "<sub>"
+        + ([ (.language // empty),
+             (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
+             ("updated " + (.pushed_at | split("T")[0])) ]
+           | join(" · "))
+        + "</sub>",
+      (if (.description // "") == "" then empty else
+        (.description
           | gsub("[\r\n\t]+"; " ")
           | gsub("\\|"; "\\|")
-          | if length > 110 then .[0:109] + "…" else . end
-          | if . == "" then "—" else . end)
-      + " | " + (.pushed_at | split("T")[0]) + " |"
+          | if length > 140 then .[0:139] + "…" else . end)
+       end),
+      ""
   ' > "$tmp"
 
 python3 - "$README" "$tmp" <<'PY'
 import pathlib, sys
 
 readme = pathlib.Path(sys.argv[1])
-rows = pathlib.Path(sys.argv[2]).read_text().strip().splitlines()
+cards = [b.strip() for b in pathlib.Path(sys.argv[2]).read_text().strip().split("\n\n") if b.strip()]
 
 start_marker, end_marker = "<!-- RECENT:START -->", "<!-- RECENT:END -->"
 text = readme.read_text()
@@ -43,7 +51,6 @@ start, end = text.find(start_marker), text.find(end_marker)
 if start == -1 or end == -1:
     sys.exit("markers not found in README")
 
-header = ["", "| Repository | Description | Updated |", "| --- | --- | --- |"]
-block = "\n".join([start_marker, *header, *rows, "", end_marker])
+block = "\n\n".join([start_marker, *cards, "", end_marker])
 readme.write_text(text[:start] + block + text[end + len(end_marker):])
 PY
