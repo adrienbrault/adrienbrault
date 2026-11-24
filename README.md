@@ -1,46 +1,25 @@
 <!-- RECENT:START -->
 
-**[pi-ui](https://github.com/adrienbrault/pi-ui)**<br><sub>TypeScript · 2026-11-24</sub>
-
-**[qwen3.8-27b-rtx5090](https://github.com/adrienbrault/qwen3.8-27b-rtx5090)**<br><sub>Python · ★ 28 · 2026-11-24</sub><br>Qwen3.8-27B on 2× RTX 5090 · 1.49M KV · code/prose t/s: c1 264/216, c16 2,649/2,240 · NVFP4 + vLLM + MTP
-
-**[inkling-2-mini-2x-rtx5090](https://github.com/adrienbrault/inkling-2-mini-2x-rtx5090)**<br><sub>Python · 2026-11-24</sub>
-
-**[deepseek-v4.1-flash-4x-cmp170hx](https://github.com/adrienbrault/deepseek-v4.1-flash-4x-cmp170hx)**<br><sub>Python · 2026-11-23</sub><br>DeepSeek V4.1 Flash on 4× NVIDIA CMP 170HX (TP4, vLLM): recipe, patches and measured numbers
-
-**[geekmagic-hacs](https://github.com/adrienbrault/geekmagic-hacs)**<br><sub>Python · ★ 497 · 2026-11-23</sub><br>Home Assistant integration for GeekMagic displays (SmallTV Pro/Ultra). Server-side rendering, no device flashing required.
-
-**[blitz-py](https://github.com/adrienbrault/blitz-py)**<br><sub>Rust · ★ 4 · 2026-11-17</sub><br>Render HTML/CSS to images from Python — no browser required. Powered by Blitz (Stylo + Taffy + Parley + Vello).
-
-**[qwen3.8-flash-next-2x-rtx5090](https://github.com/adrienbrault/qwen3.8-flash-next-2x-rtx5090)**<br><sub>Python · ★ 3 · 2026-11-16</sub><br>Qwen3.8-Flash-Next (turboderp's 2.68bpw EXL3) on 2× RTX 5090, ExLlamaV3 + TabbyAPI: 262k context, 819k-token 8-bit KV pool, 8 slots, MTP + …
-
-**[dokuel](https://github.com/adrienbrault/dokuel)**<br><sub>TypeScript · 2026-11-09</sub><br>Real-time 1v1 sudoku duels. Peer-to-peer, no account needed.
-
-**[cmp-170hx-duct](https://github.com/adrienbrault/cmp-170hx-duct)**<br><sub>Python · ★ 6 · 2026-11-07</sub><br>3D-printable, parametric fan ducts for passively cooled NVIDIA CMP 170HX cards: push duct, exhaust collectors, printability gates and OpenF…
-
-**[qwen3.8-flash-next-2x-cmp170hx](https://github.com/adrienbrault/qwen3.8-flash-next-2x-cmp170hx)**<br><sub>Python · 2026-10-21</sub>
-
-**[claude-fix-bash-diffs](https://github.com/adrienbrault/claude-fix-bash-diffs)**<br><sub>TypeScript · 2026-10-19</sub><br>Claude Code mod that cuts the file diffs under Bash calls from 40 lines to 8 per file
-
-**[glm5.3-flash-2x-rtx5090](https://github.com/adrienbrault/glm5.3-flash-2x-rtx5090)**<br><sub>Python · ★ 1 · 2026-10-10</sub><br>GLM-5.3-Flash (321B MoE, 2.05bpw EXL3) on 2× RTX 5090 + 64 GB DDR5, ExLlamaV3 + TabbyAPI. CPU-offloaded experts with runtime hot-expert swa…
-
-**[salvo](https://github.com/adrienbrault/salvo)**<br><sub>TypeScript · 2026-09-24</sub><br>A shoot'em-up roguelike à la Balatro, in the browser. Timed score-attack levels, and a shop of relics and equipment that reshape how you pl…
-
-**[adrien.brage.fr](https://github.com/adrienbrault/adrien.brage.fr)**<br><sub>Astro · 2026-09-04</sub>
-
-**[dsphp](https://github.com/adrienbrault/dsphp)**<br><sub>PHP · 2026-01-28</sub>
-
-**[instructrice](https://github.com/adrienbrault/instructrice)**<br><sub>PHP · ★ 29 · 2024-07-23</sub><br>👩‍🏫 Typed LLM Outputs in PHP. Supports GPT, Claude, Gemini or any OpenAI compatible provider!
-
-**[instructrice-bundle](https://github.com/adrienbrault/instructrice-bundle)**<br><sub>PHP · ★ 3 · 2024-05-31</sub><br>👩‍🏫 Typed LLM Outputs with Symfony
-
-**[hf-gguf-to-ollama](https://github.com/adrienbrault/hf-gguf-to-ollama)**<br><sub>TypeScript · ★ 120 · 2024-05-22</sub><br>Dagger functions to import Hugging Face GGUF models into a local ollama instance and optionally push them to ollama.com.
-
-**[h2p-l8b-bug](https://github.com/adrienbrault/h2p-l8b-bug)**<br><sub>TypeScript · 2024-05-14</sub>
-
-**[hermes2pro-proxy](https://github.com/adrienbrault/hermes2pro-proxy)**<br><sub>PHP · ★ 18 · 2024-05-07</sub><br>Use Hermes-2-Pro-Mistral-7B function calling with your OpenAI API compatible code.
-
-
+- **[pi-ui](https://github.com/adrienbrault/pi-ui)** <sub>TypeScript · 2026-11-24</sub>
+- **[qwen3.8-27b-rtx5090](https://github.com/adrienbrault/qwen3.8-27b-rtx5090)** <sub>Python · ★ 28 · 2026-11-24</sub><br>Qwen3.8-27B on 2× RTX 5090 · 1.49M KV · code/prose t/s: c1 264/216, c16 2,649/2,240 · NVFP4 + vLLM + MTP
+- **[inkling-2-mini-2x-rtx5090](https://github.com/adrienbrault/inkling-2-mini-2x-rtx5090)** <sub>Python · 2026-11-24</sub>
+- **[deepseek-v4.1-flash-4x-cmp170hx](https://github.com/adrienbrault/deepseek-v4.1-flash-4x-cmp170hx)** <sub>Python · 2026-11-23</sub><br>DeepSeek V4.1 Flash on 4× NVIDIA CMP 170HX (TP4, vLLM): recipe, patches and measured numbers
+- **[geekmagic-hacs](https://github.com/adrienbrault/geekmagic-hacs)** <sub>Python · ★ 497 · 2026-11-23</sub><br>Home Assistant integration for GeekMagic displays (SmallTV Pro/Ultra). Server-side rendering, no device flashing required.
+- **[blitz-py](https://github.com/adrienbrault/blitz-py)** <sub>Rust · ★ 4 · 2026-11-17</sub><br>Render HTML/CSS to images from Python — no browser required. Powered by Blitz (Stylo + Taffy + Parley + Vello).
+- **[qwen3.8-flash-next-2x-rtx5090](https://github.com/adrienbrault/qwen3.8-flash-next-2x-rtx5090)** <sub>Python · ★ 3 · 2026-11-16</sub><br>Qwen3.8-Flash-Next (turboderp's 2.68bpw EXL3) on 2× RTX 5090, ExLlamaV3 + TabbyAPI: 262k context, 819k-token 8-bit KV pool, 8 slots, MTP +…
+- **[dokuel](https://github.com/adrienbrault/dokuel)** <sub>TypeScript · 2026-11-09</sub><br>Real-time 1v1 sudoku duels. Peer-to-peer, no account needed.
+- **[cmp-170hx-duct](https://github.com/adrienbrault/cmp-170hx-duct)** <sub>Python · ★ 6 · 2026-11-07</sub><br>3D-printable, parametric fan ducts for passively cooled NVIDIA CMP 170HX cards: push duct, exhaust collectors, printability gates and…
+- **[qwen3.8-flash-next-2x-cmp170hx](https://github.com/adrienbrault/qwen3.8-flash-next-2x-cmp170hx)** <sub>Python · 2026-10-21</sub>
+- **[claude-fix-bash-diffs](https://github.com/adrienbrault/claude-fix-bash-diffs)** <sub>TypeScript · 2026-10-19</sub><br>Claude Code mod that cuts the file diffs under Bash calls from 40 lines to 8 per file
+- **[glm5.3-flash-2x-rtx5090](https://github.com/adrienbrault/glm5.3-flash-2x-rtx5090)** <sub>Python · ★ 1 · 2026-10-10</sub><br>GLM-5.3-Flash (321B MoE, 2.05bpw EXL3) on 2× RTX 5090 + 64 GB DDR5, ExLlamaV3 + TabbyAPI. CPU-offloaded experts with runtime hot-expert…
+- **[salvo](https://github.com/adrienbrault/salvo)** <sub>TypeScript · 2026-09-24</sub><br>A shoot'em-up roguelike à la Balatro, in the browser. Timed score-attack levels, and a shop of relics and equipment that reshape how you…
+- **[adrien.brage.fr](https://github.com/adrienbrault/adrien.brage.fr)** <sub>Astro · 2026-09-04</sub>
+- **[dsphp](https://github.com/adrienbrault/dsphp)** <sub>PHP · 2026-01-28</sub>
+- **[instructrice](https://github.com/adrienbrault/instructrice)** <sub>PHP · ★ 29 · 2024-07-23</sub><br>👩‍🏫 Typed LLM Outputs in PHP. Supports GPT, Claude, Gemini or any OpenAI compatible provider!
+- **[instructrice-bundle](https://github.com/adrienbrault/instructrice-bundle)** <sub>PHP · ★ 3 · 2024-05-31</sub><br>👩‍🏫 Typed LLM Outputs with Symfony
+- **[hf-gguf-to-ollama](https://github.com/adrienbrault/hf-gguf-to-ollama)** <sub>TypeScript · ★ 120 · 2024-05-22</sub><br>Dagger functions to import Hugging Face GGUF models into a local ollama instance and optionally push them to ollama.com.
+- **[h2p-l8b-bug](https://github.com/adrienbrault/h2p-l8b-bug)** <sub>TypeScript · 2024-05-14</sub>
+- **[hermes2pro-proxy](https://github.com/adrienbrault/hermes2pro-proxy)** <sub>PHP · ★ 18 · 2024-05-07</sub><br>Use Hermes-2-Pro-Mistral-7B function calling with your OpenAI API compatible code.
 
 <!-- RECENT:END -->
 
