@@ -7,6 +7,20 @@ OWNER="${GITHUB_REPOSITORY_OWNER:-adrienbrault}"
 LIMIT="${LIMIT:-20}"
 README="${README:-README.md}"
 
+# Language chip colours (GitHub linguist) and simpleicons slugs. Unknown languages
+# fall back to a grey chip without a logo.
+LANGS='{
+  "Python":     {"c": "3776AB", "l": "python"},
+  "TypeScript": {"c": "3178C6", "l": "typescript"},
+  "Rust":       {"c": "000000", "l": "rust"},
+  "PHP":        {"c": "777BB4", "l": "php"},
+  "JavaScript": {"c": "F7DF1E", "l": "javascript"},
+  "HTML":       {"c": "E34C26", "l": "html5"},
+  "Astro":      {"c": "FF5A03", "l": ""},
+  "Makefile":   {"c": "427819", "l": ""},
+  "Shell":      {"c": "89E051", "l": "gnubash"}
+}'
+
 auth=()
 if [ -n "${GITHUB_TOKEN:-}" ]; then
   auth=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
@@ -16,19 +30,28 @@ api="https://api.github.com/users/${OWNER}/repos?per_page=100&sort=pushed&type=o
 tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
 
-# One bullet per repo: bold linked name with a small meta caption, description below.
-# Repos without a description render as the name + caption line only.
+# One bullet per repo: linked name, language chip, small meta caption, description.
+# Repos without a description render as the name + meta line only.
 curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
-  jq -r --arg owner "$OWNER" --argjson limit "$LIMIT" '
+  jq -r --arg owner "$OWNER" --argjson limit "$LIMIT" --argjson langs "$LANGS" '
     [ .[] | select(.fork == false) | select(.name != $owner) ]
     | sort_by(.pushed_at) | reverse | .[:$limit]
     | .[]
-    | "- **[\(.name)](https://github.com/\($owner)/\(.name))** <sub>"
-        + ([ (.language // empty),
-             (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
-             (.pushed_at | split("T")[0]) ]
-           | join(" · "))
-        + "</sub>"
+    | (.language // "") as $lang
+    | ($langs[$lang] // null) as $style
+    | "- **[\(.name)](https://github.com/\($owner)/\(.name))**"
+      + (if $lang == "" then ""
+         else " ![\($lang)](https://img.shields.io/badge/-\($lang)-"
+              + (if $style then $style.c else "555555" end)
+              + "?style=flat-square"
+              + (if $style and $style.l != "" then "&logo=\($style.l)&logoColor=white" else "" end)
+              + ")"
+         end)
+      + " <sub>"
+      + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
+           (.pushed_at | split("T")[0]) ]
+         | join(" · "))
+      + "</sub>"
       + (if ((.description // "") | length) == 0 then ""
          else "<br>" + (.description
            | gsub("[\r\n\t]+"; " ")
