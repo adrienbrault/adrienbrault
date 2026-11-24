@@ -23,19 +23,18 @@ curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
     [ .[] | select(.fork == false) | select(.name != $owner) ]
     | sort_by(.pushed_at) | reverse | .[:$limit]
     | .[]
-    | "**[\(.name)](https://github.com/\($owner)/\(.name))**",
-      "<sub>"
+    | "**[\(.name)](https://github.com/\($owner)/\(.name))**<br>"
+      + "<sub>"
         + ([ (.language // empty),
              (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
-             ("updated " + (.pushed_at | split("T")[0])) ]
+             (.pushed_at | split("T")[0]) ]
            | join(" · "))
-        + "</sub>",
-      (if (.description // "") == "" then empty else
-        (.description
-          | gsub("[\r\n\t]+"; " ")
-          | gsub("\\|"; "\\|")
-          | if length > 140 then .[0:139] + "…" else . end)
-       end),
+        + "</sub>"
+      + (if (.description // "") == "" then "" else
+          "<br>" + (.description
+            | gsub("[\r\n\t]+"; " ")
+            | if length > 140 then .[0:139] + "…" else . end)
+         end),
       ""
   ' > "$tmp"
 
