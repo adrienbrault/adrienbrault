@@ -25,10 +25,11 @@ curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
     | sort_by(.pushed_at) | reverse | .[:$limit]
     | .[]
     | "- **[\(.name)](https://github.com/\($owner)/\(.name))**"
-      + (if .stargazers_count > 0
-         then " ![★ \(.stargazers_count)](https://img.shields.io/badge/-%E2%98%85_\(.stargazers_count)-e6e6e6?style=flat-square)"
-         else "" end)
-      + " <sub>\(.pushed_at | split("T")[0])</sub>"
+      + " <sub>"
+      + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
+           (.pushed_at | split("T")[0]) ]
+         | join(" · "))
+      + "</sub>"
       + (if ((.description // "") | length) == 0 then ""
          else "<br>" + (.description
            | gsub("[\r\n\t]+"; " ")
