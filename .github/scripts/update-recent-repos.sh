@@ -37,7 +37,7 @@ rows_filter='
              else . end)
          end)
       + " | <sub>"
-      + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
+      + ([ (if .stargazers_count > 0 then "\(.stargazers_count) ★" else empty end),
            (.pushed_at | split("T")[0] | gsub("-"; "&#8209;")) ]
          | join("<br>"))
       + "</sub> |"'
