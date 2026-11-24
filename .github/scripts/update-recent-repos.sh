@@ -24,7 +24,7 @@ curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
     [ .[] | select(.fork == false) | select(.name != $owner) ]
     | sort_by(.pushed_at) | reverse | .[:$limit]
     | .[]
-    | "- **[\(.name)](https://github.com/\($owner)/\(.name))**"
+    | "| **[\(.name)](https://github.com/\($owner)/\(.name))**"
       + " <sub>"
       + ([ (if .stargazers_count > 0 then "★ \(.stargazers_count)" else empty end),
            (.pushed_at | split("T")[0]) ]
@@ -33,9 +33,11 @@ curl -fsS "${auth[@]}" -H "Accept: application/vnd.github+json" "$api" |
       + (if ((.description // "") | length) == 0 then ""
          else "<br>" + (.description
            | gsub("[\r\n\t]+"; " ")
-           | if length > 140 then (.[0:140] | sub("[^ ]*$"; "") | sub(" +$"; "")) + "…"
+           | gsub("\\|"; "\\|")
+           | if length > 160 then (.[0:160] | sub("[^ ]*$"; "") | sub(" +$"; "")) + "…"
              else . end)
          end)
+      + " |"
   ' > "$tmp"
 
 python3 - "$README" "$tmp" <<'PY'
@@ -50,6 +52,6 @@ start, end = text.find(start_marker), text.find(end_marker)
 if start == -1 or end == -1:
     sys.exit("markers not found in README")
 
-block = "\n".join([start_marker, "", *items, "", end_marker])
+block = "\n".join([start_marker, "", "| Repository |", "| :--- |", *items, "", end_marker])
 readme.write_text(text[:start] + block + text[end + len(end_marker):])
 PY
