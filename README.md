@@ -1,9 +1,3 @@
-# Adrien Brault
-
-Self-hosting a home lab and running large models on small GPUs — 2× RTX 5090 and 4× passively-cooled CMP 170HX — with measured numbers in every recipe. PHP/Symfony by trade, TypeScript and Python for the rest.
-
-[Blog](https://adrien.brage.fr) · [X](https://twitter.com/AdrienBrault)
-
 ## Selected projects
 
 ### Local LLM inference
