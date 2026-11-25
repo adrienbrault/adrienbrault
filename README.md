@@ -5,7 +5,7 @@
 | Repository | |
 | :--- | ---: |
 | **[pi-ui](https://github.com/adrienbrault/pi-ui)**<br>Pi coding agent extension that reshapes the terminal view: the newest tool call or thought expands, older blocks shrink as newer ones arrive | <sub>2026&#8209;11&#8209;24</sub> |
-| **[geekmagic-hacs](https://github.com/adrienbrault/geekmagic-hacs)**<br>Home Assistant integration for GeekMagic displays (SmallTV Pro/Ultra). Server-side rendering, no device flashing required. | <sub>499 ★<br>2026&#8209;11&#8209;24</sub> |
+| **[geekmagic-hacs](https://github.com/adrienbrault/geekmagic-hacs)**<br>Home Assistant integration for GeekMagic displays (SmallTV Pro/Ultra). Server-side rendering, no device flashing required. | <sub>502 ★<br>2026&#8209;11&#8209;24</sub> |
 | **[qwen3.8-27b-rtx5090](https://github.com/adrienbrault/qwen3.8-27b-rtx5090)**<br>Qwen3.8-27B on 2× RTX 5090 · 1.49M KV · code/prose t/s: c1 264/216, c16 2,649/2,240 · NVFP4 + vLLM + MTP | <sub>28 ★<br>2026&#8209;11&#8209;24</sub> |
 | **[inkling-2-mini-2x-rtx5090](https://github.com/adrienbrault/inkling-2-mini-2x-rtx5090)**<br>Inkling-2-Mini on 2× RTX 5090: vLLM overlay, launcher and dated measurements. 416 tok/s single stream, 2,399 tok/s across 16 | <sub>2026&#8209;11&#8209;24</sub> |
 | **[deepseek-v4.1-flash-4x-cmp170hx](https://github.com/adrienbrault/deepseek-v4.1-flash-4x-cmp170hx)**<br>DeepSeek V4.1 Flash on 4× NVIDIA CMP 170HX (TP4, vLLM): recipe, patches and measured numbers | <sub>2026&#8209;11&#8209;23</sub> |
